@@ -4,6 +4,7 @@ package tree;
 /**
  * The entity we're storing in our node
  */
+//Test Push
 
 public class Employee implements Comparable<Employee> {
 	
