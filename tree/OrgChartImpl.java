@@ -25,7 +25,7 @@ public class OrgChartImpl implements OrgChart{
 		
 		//removes all elements in the org chart..  can do in a 1 liner
 		public void clear() {
-			// TODO Auto-generated method stub
+			nodes = null;
 			
 		}
 
