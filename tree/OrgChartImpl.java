@@ -1,7 +1,11 @@
 package tree;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
+import java.util.Set;
 
 public class OrgChartImpl implements OrgChart{
 
@@ -108,7 +112,24 @@ public class OrgChartImpl implements OrgChart{
 
 		@Override
 		public void showOrgChartBreadthFirst() {
-			// TODO Auto-generated method stub
+			
+			
+			Queue<GenericTreeNode<Employee>> queue = new LinkedList<>();		//linked list can implement queue
+	        queue.add(nodes.get(0));
+
+	        GenericTreeNode<Employee> currentNode;
+	        Set<GenericTreeNode<Employee>> alreadyVisited = new HashSet<>();
+	        System.out.print("Visited nodes: ");
+	   
+	        while (!queue.isEmpty()) {
+	            currentNode = queue.remove();
+	            System.out.print(currentNode.data + " | ");
+
+	            alreadyVisited.add(currentNode);
+	            queue.addAll(currentNode.children);
+	            queue.removeAll(alreadyVisited);
+	        }
+	        
 			
 		}
 		
