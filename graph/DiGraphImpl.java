@@ -96,7 +96,11 @@ public class DiGraphImpl implements DiGraph{
 
 	@Override
 	public GraphNode getNode(String nodeValue) {
-		// TODO Auto-generated method stub
+		for(GraphNode node : nodeList) {
+			if (node.getValue() == nodeValue) {
+				return node;
+			}
+		}
 		return null;
 	}
 
