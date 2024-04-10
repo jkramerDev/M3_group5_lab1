@@ -15,6 +15,7 @@ public class GenericTreeNode<E> {
 	}
 	
 	public void removeChild(E theItem) {
+		
 		// this one is a little harder.
 		// what do you do when the item has children?
 		// I suggest "give them to the parent"
