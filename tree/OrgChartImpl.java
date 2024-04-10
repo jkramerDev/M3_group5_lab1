@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
+import java.util.Stack;
 
 public class OrgChartImpl implements OrgChart{
 
@@ -97,8 +98,18 @@ public class OrgChartImpl implements OrgChart{
 		 * recursion is key here
 		 */
 		public void showOrgChartDepthFirst() {
-			// TODO Auto-generated method stub
+		        depthFirstSearch(nodes.get(0));
+		}
+		
+		private void depthFirstSearch(GenericTreeNode<Employee> node) {
+			if(node == null) {
+				return;
+			}
+			System.out.print(node.data + " | ");
 			
+			for(GenericTreeNode<Employee> child : node.children) {
+				depthFirstSearch(child);
+			}
 		}
 		
 		/**
