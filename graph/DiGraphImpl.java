@@ -77,7 +77,9 @@ public class DiGraphImpl implements DiGraph{
 			return true;
 		}
 		for(GraphNode neighbor: fromNode.getNeighbors()) {
-			nodeIsReachable(neighbor, toNode);
+			if(nodeIsReachable(neighbor, toNode)) {
+				return true;
+			}
 		}
 		return false;
 	}
@@ -99,12 +101,12 @@ public class DiGraphImpl implements DiGraph{
 
 	@Override
 	public GraphNode getNode(String nodeValue) {
-		for(GraphNode node : nodeList) {
-			if (node.getValue() == nodeValue) {
-				return node;
-			}
-		}
-		return null;
+	    for (GraphNode node : nodeList) {
+	        if (node.getValue().equals(nodeValue)) {
+	            return node;
+	        }
+	    }
+	    return null;
 	}
 
 	@Override
