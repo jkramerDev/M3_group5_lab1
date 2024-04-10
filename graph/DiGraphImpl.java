@@ -1,12 +1,15 @@
 package graph;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
  
 //test comment another and another
 public class DiGraphImpl implements DiGraph{
 
 	private List<GraphNode> nodeList = new ArrayList<>();
+	
 
 	@Override
 	public Boolean addNode(GraphNode node) {
@@ -102,8 +105,38 @@ public class DiGraphImpl implements DiGraph{
 
 	@Override
 	public int fewestHops(GraphNode fromNode, GraphNode toNode) {
-		// TODO Auto-generated method stub
-		return 0;
+		Queue<GraphNode> queue = new LinkedList<>();
+        queue.add(fromNode);
+        fromNode.visited = true;
+        int level = 0; // Initialize the level counter
+        int nodesAtCurrentLevel = 1; // Counter for nodes at the current level
+
+        while (!queue.isEmpty()) {
+            int nodesAtNextLevel = 0; // Counter for nodes at the next level
+
+            while (nodesAtCurrentLevel > 0) {
+                GraphNode element = queue.remove();
+
+                List<GraphNode> neighbours = element.getNeighbors();
+                for (int i = 0; i < neighbours.size(); i++) {
+                    GraphNode n = neighbours.get(i);
+                    if (n != null && !n.visited) {
+                        queue.add(n);
+                        n.visited = true;
+                        nodesAtNextLevel++; // Increment the counter for the next level
+                    }
+                    if (n.equals(toNode)) {
+                        return level + 1; // Add 1 to include the current node
+                    }
+                }
+                nodesAtCurrentLevel--;
+            }
+            // Update the counters for the next level
+            nodesAtCurrentLevel = nodesAtNextLevel;
+            level++;
+        }
+        // If no path found
+        return -1;
 	}
 
 	@Override

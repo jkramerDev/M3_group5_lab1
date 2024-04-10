@@ -10,6 +10,8 @@ public class GraphNode {
 	private String value;
 	private HashMap<GraphNode, Integer> paths = new HashMap<>();
 	
+	public boolean visited;
+	
 	public GraphNode(String item) {
 		value = item;
 	}
@@ -56,5 +58,7 @@ public class GraphNode {
 		paths.put(neighbor, weight);
 		return true;
 	}
+
+
 	
 }
