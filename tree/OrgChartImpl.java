@@ -90,7 +90,7 @@ public class OrgChartImpl implements OrgChart{
 		
 		@Override
 		public void removeEmployee(Employee firedPerson) {
-			// TODO Auto-generated method stub
+			
 			
 		}
 
