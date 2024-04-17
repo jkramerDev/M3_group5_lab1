@@ -68,11 +68,10 @@ public class GraphTester {
 		TESTshortestPath("B", "C");
 		TESTshortestPath("B", "D");
 		TESTshortestPath("A", "G");
-		
 
 	}
 
-	
+
 	private static void TESTfewestHops(String nodeFrom, String nodeTo) {
 		
 		System.out.println("Fewest hops in the graph from  " + nodeFrom + " to " + nodeTo + ": " + graph.fewestHops(new GraphNode(nodeFrom), new GraphNode(nodeTo)));
@@ -95,7 +94,7 @@ public class GraphTester {
 	public static void TESTaddEdge(String from, String to, Integer weight) {
 
 		say("Attempting to addEdge [" + from + "] to [" + to + "] with weight [" + weight + "]");
-		say(graph.addEdge(graph.getNode(from),graph.getNode(to), weight) ? "SUCCESS" : "FAIL");
+		say(graph.addEdge(new GraphNode(from), new GraphNode(to), weight) ? "SUCCESS" : "FAIL");
 
 	}
 	
@@ -107,7 +106,7 @@ public class GraphTester {
 
 	public static void TESTnodeIsReachable(String nodeFrom, String nodeTo) {
 
-		System.out.println("There is " + (graph.nodeIsReachable(graph.getNode(nodeFrom),graph.getNode(nodeTo)) ? "a" : "NO")
+		System.out.println("There is " + (graph.nodeIsReachable(new GraphNode(nodeFrom), new GraphNode(nodeTo)) ? "a" : "NO")
 				+ " path from [" + nodeFrom + "] to [" + nodeTo + "]");
 
 	}
@@ -118,7 +117,6 @@ public class GraphTester {
 			System.out.println("Node [" + thisNode.getValue() + "] ");
 			
 				if(thisNode.getNeighbors().isEmpty()) {
-					System.out.println();
 					System.out.println("has no outgoing connections");
 					
 				}else {
