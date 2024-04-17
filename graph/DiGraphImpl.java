@@ -164,7 +164,26 @@ public class DiGraphImpl implements DiGraph{
 
 	@Override
 	public int shortestPath(GraphNode fromNode, GraphNode toNode) {
-		// TODO Auto-generated method stub
+		GraphNode targetFromNode = getNode(fromNode.getValue());
+		GraphNode targetToNode = getNode(toNode.getValue());
+		int weight = 0;
+		int count = 0;
+		int total = 0;
+		if(targetFromNode.getNeighbors().contains(targetToNode)) {
+			weight += getEdgeValue(targetFromNode,targetToNode);
+			if(count == 0) {
+				total = weight;
+				count ++;
+			}else if(weight < total){
+				total = weight;
+			}
+			return total;
+		}
+		for(GraphNode neighbor: targetFromNode.getNeighbors()) {
+			if(nodeIsReachable(neighbor, targetToNode)) {
+				weight += getEdgeValue(neighbor,targetToNode);
+			}
+		}
 		return 0;
 	}
 	
