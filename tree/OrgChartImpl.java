@@ -90,7 +90,36 @@ public class OrgChartImpl implements OrgChart{
 		
 		@Override
 		public void removeEmployee(Employee firedPerson) {
-			
+			boolean found = false;
+			Queue<GenericTreeNode<Employee>> queue = new LinkedList<>();		//linked list can implement queue
+	        queue.add(nodes.get(0));
+	        GenericTreeNode<Employee> currentNode;
+	        Set<GenericTreeNode<Employee>> alreadyVisited = new HashSet<>();
+	        //System.out.print("Visited nodes: ");
+	   
+	        while (!queue.isEmpty()) {
+	            currentNode = queue.remove();
+	            //System.out.print(currentNode.data + " | ");
+
+	            alreadyVisited.add(currentNode);
+	            
+	            for(GenericTreeNode<Employee> c : currentNode.children)
+	            {
+	            	if(c.data.equals(firedPerson))
+	            	{
+	            		//System.out.println("\nFired Employee: " + c.data.toString());
+	            		currentNode.removeChild(firedPerson);
+	            		nodes.remove(c);
+	            		return;
+	            		//found = true;
+	            	}
+	            }
+	            
+	           
+	   
+	           	queue.addAll(currentNode.children);
+	            queue.removeAll(alreadyVisited);
+	        }
 			
 		}
 
