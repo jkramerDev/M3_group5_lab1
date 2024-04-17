@@ -1,9 +1,14 @@
 package graph;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Set;
+
+import tree.Employee;
+import tree.GenericTreeNode;
 
  
 //test comment another and another
@@ -164,7 +169,7 @@ public class DiGraphImpl implements DiGraph{
 
 	@Override
 	public int shortestPath(GraphNode fromNode, GraphNode toNode) {
-		GraphNode targetFromNode = getNode(fromNode.getValue());
+		/*GraphNode targetFromNode = getNode(fromNode.getValue());
 		GraphNode targetToNode = getNode(toNode.getValue());
 		int weight = 0;
 		int count = 0;
@@ -177,14 +182,43 @@ public class DiGraphImpl implements DiGraph{
 			}else if(weight < total){
 				total = weight;
 			}
-			return total;
+			weight = 0;
 		}
 		for(GraphNode neighbor: targetFromNode.getNeighbors()) {
+			weight += getEdgeValue(neighbor,targetToNode);
 			if(nodeIsReachable(neighbor, targetToNode)) {
-				weight += getEdgeValue(neighbor,targetToNode);
+				
 			}
 		}
-		return 0;
+		return total;*/
+		GraphNode targetFromNode = getNode(fromNode.getValue());
+		GraphNode targetToNode = getNode(toNode.getValue());
+		Queue<GraphNode> queue = new LinkedList<>();		//linked list can implement queue
+        queue.add(targetFromNode);
+        int weight = 0;
+        int total = 0;
+        GraphNode currentNode;
+        Set<GraphNode> alreadyVisited = new HashSet<>();
+        System.out.print("Visited nodes: ");
+   
+        while (!queue.isEmpty()) {
+            currentNode = queue.remove();
+            //System.out.print(currentNode.data + " | ");
+            
+            for(GraphNode c : currentNode.getNeighbors())
+            {	
+            	weight += getEdgeValue(currentNode,c);
+            	if(getNode(c.getValue()).equals(targetToNode))
+            	{
+            		total = weight + getEdgeValue(c,targetToNode);
+            	}
+            }
+            alreadyVisited.add(currentNode);
+            queue.addAll(currentNode.getNeighbors());
+            queue.removeAll(alreadyVisited);
+        }
+		
+		return total;
 	}
 	
 	
