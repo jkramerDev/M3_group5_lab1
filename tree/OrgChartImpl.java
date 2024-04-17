@@ -150,7 +150,6 @@ public class OrgChartImpl implements OrgChart{
 
 	        GenericTreeNode<Employee> currentNode;
 	        Set<GenericTreeNode<Employee>> alreadyVisited = new HashSet<>();
-	        System.out.print("Visited nodes: ");
 	   
 	        while (!queue.isEmpty()) {
 	            currentNode = queue.remove();
