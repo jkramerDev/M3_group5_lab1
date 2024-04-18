@@ -90,7 +90,7 @@ public class GraphTester {
 	
 	public static void TESThasCycles() {
 
-		System.out.println("The graph has " + (graph.hasCycles() ? " " : "NO") + " cycles");
+		System.out.println("The graph has" + (graph.hasCycles() ? " " : " NO ") + "cycles");
 
 	}
 
@@ -174,10 +174,10 @@ public class GraphTester {
 				
 				TESThasCycles();
 				
-				//TESTaddEdge("F", "G", 10);
+				TESTaddEdge("F", "G", 10);
 				
-				//TESThasCycles();
-				//TESTshortestPath("A", "F");
+				TESThasCycles();
+				TESTshortestPath("A", "F");
 				
 	}
 

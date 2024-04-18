@@ -9,8 +9,6 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
-import tree.Employee;
-import tree.GenericTreeNode;
 
 
 
@@ -19,7 +17,7 @@ import tree.GenericTreeNode;
 public class DiGraphImpl implements DiGraph{
 
 	private List<GraphNode> nodeList = new ArrayList<>();
-	
+	private int circuitCounter;
 
 	@Override
 	public Boolean addNode(GraphNode node) {
@@ -92,20 +90,28 @@ public class DiGraphImpl implements DiGraph{
 	public Boolean nodeIsReachable(GraphNode fromNode, GraphNode toNode) {
 		GraphNode targetFromNode = getNode(fromNode.getValue());
 		GraphNode targetToNode = getNode(toNode.getValue());
+		circuitCounter++;
 		if(targetFromNode.getNeighbors().contains(targetToNode)) {
 			return true;
+		}
+		else if(circuitCounter>nodeList.size()+100*10)
+		{
+			return false;
 		}
 		for(GraphNode neighbor: targetFromNode.getNeighbors()) {
 			if(nodeIsReachable(neighbor, targetToNode)) {
 				return true;
 			}
 		}
+		
+		
 		return false;
 	}
 
 	@Override
 	public Boolean hasCycles() {
 		for(GraphNode node : nodeList) {
+			circuitCounter = 0;
 			if(nodeIsReachable(node,node)) {
 				return true;
 			}
