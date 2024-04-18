@@ -68,6 +68,9 @@ public class GraphTester {
 		TESTshortestPath("B", "C");
 		TESTshortestPath("B", "D");
 		TESTshortestPath("A", "G");
+		
+		graph = new DiGraphImpl();
+		TESTbigGraph();
 
 	}
 
@@ -137,6 +140,45 @@ public class GraphTester {
 
 		System.out.println(s);
 		
+	}
+	
+	public static void TESTbigGraph()
+	{
+		// add nodes
+				TESTaddNode("A");
+				TESTaddNode("B");
+				TESTaddNode("E");
+				TESTaddNode("C");
+				TESTaddNode("D");
+				TESTaddNode("F");
+				TESTaddNode("G");
+
+
+				// add edges
+				
+				TESTaddEdge("A", "B", 2);
+				TESTaddEdge("A", "C", 5);
+				TESTaddEdge("B", "C", 3);
+				TESTaddEdge("B", "D", 8);
+				TESTaddEdge("B", "E", 9);
+				TESTaddEdge("C", "D", 7);
+				TESTaddEdge("C", "G", 10);
+				TESTaddEdge("D", "E", 4);
+				TESTaddEdge("D", "G", 4);
+				TESTaddEdge("E", "F", 6);
+				TESTaddEdge("G", "F", 1);
+				
+				TESTshortestPath("A", "F");
+				TESTshortestPath("B", "E");
+				TESTshortestPath("A", "D");
+				
+				TESThasCycles();
+				
+				//TESTaddEdge("F", "G", 10);
+				
+				//TESThasCycles();
+				//TESTshortestPath("A", "F");
+				
 	}
 
 }

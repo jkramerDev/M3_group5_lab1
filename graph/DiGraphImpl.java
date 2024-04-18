@@ -1,14 +1,18 @@
 package graph;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
 
 import tree.Employee;
 import tree.GenericTreeNode;
+
+
 
  
 //test comment another and another
@@ -169,6 +173,78 @@ public class DiGraphImpl implements DiGraph{
 
 	@Override
 	public int shortestPath(GraphNode fromNode, GraphNode toNode) {
+		
+		GraphNode targetFromNode = getNode(fromNode.getValue());
+		GraphNode targetToNode = getNode(toNode.getValue());
+		
+		//Lists for algorithm
+		//Set<GraphNode> unSettled1 = new HashSet<>();
+		Map<String,Integer> distance = new HashMap<>();
+		Map<String,GraphNode> prev = new HashMap<>();
+		
+		//Temp weight value
+		Integer temp;
+		GraphNode currentNode;
+		
+		//Create List of Nodes to be processed from graph
+		Queue<GraphNode> queue = new LinkedList<>();
+        queue.add(targetFromNode);
+        Set<GraphNode> alreadyVisited = new HashSet<>();
+        while (!queue.isEmpty()) {
+            currentNode = queue.remove();
+            if(nodeIsReachable(currentNode,targetToNode)||currentNode.equals(targetToNode))
+            {
+	            System.out.print(currentNode.getValue() + " | ");
+            
+	            if(currentNode.equals(targetFromNode))
+	            	distance.put(currentNode.getValue(),0);
+	            else
+	            	distance.put(currentNode.getValue(),Integer.MAX_VALUE);
+	            prev.put(currentNode.getValue(),null);
+            }	
+	        alreadyVisited.add(currentNode);
+	        if(!currentNode.equals(targetToNode))
+	        {
+	        	queue.addAll(getAdjacentNodes(currentNode));
+	           	queue.removeAll(alreadyVisited);
+	        }
+        }
+        
+        List<GraphNode> unSettled = new ArrayList<>();
+        unSettled.add(targetFromNode);
+        while(!unSettled.isEmpty())
+        {
+        	/*
+        	if(unSettled.contains(targetFromNode))
+        		currentNode = targetFromNode;
+        	else
+        		currentNode = unSettled.get(0);
+        	*/
+        	currentNode = unSettled.get(0);
+        	unSettled.remove(currentNode);
+        	
+	        for(GraphNode neighbors: currentNode.getNeighbors())
+	        {
+	        	if((nodeIsReachable(neighbors,targetToNode)||neighbors.equals(targetToNode)))
+	        	{
+	        		temp = distance.get(currentNode.getValue())+getEdgeValue(currentNode,neighbors);
+	        		if(temp<distance.get(neighbors.getValue()))
+	        		{
+	        			distance.replace(neighbors.getValue(), temp);
+	        			prev.replace(neighbors.getValue(), currentNode);
+	        		}
+	        		if(!neighbors.equals(targetToNode))
+	        				unSettled.add(neighbors);
+        		}
+        	}
+			
+        }
+        
+		System.out.println();
+		return distance.get(targetToNode.getValue());
+		
+		
+		
 		/*GraphNode targetFromNode = getNode(fromNode.getValue());
 		GraphNode targetToNode = getNode(toNode.getValue());
 		int weight = 0;
@@ -191,15 +267,17 @@ public class DiGraphImpl implements DiGraph{
 			}
 		}
 		return total;*/
+		
+		/*
 		GraphNode targetFromNode = getNode(fromNode.getValue());
 		GraphNode targetToNode = getNode(toNode.getValue());
 		Queue<GraphNode> queue = new LinkedList<>();		//linked list can implement queue
         queue.add(targetFromNode);
         int weight = 0;
-        int total = 0;
+        int total=0;
         GraphNode currentNode;
-        Set<GraphNode> alreadyVisited = new HashSet<>();
-        System.out.print("Visited nodes: ");
+        //Set<GraphNode> alreadyVisited = new HashSet<>();
+        //System.out.print("Visited nodes: ");
    
         while (!queue.isEmpty()) {
             currentNode = queue.remove();
@@ -207,18 +285,28 @@ public class DiGraphImpl implements DiGraph{
             
             for(GraphNode c : currentNode.getNeighbors())
             {	
-            	weight += getEdgeValue(currentNode,c);
-            	if(getNode(c.getValue()).equals(targetToNode))
+            	//weight += getEdgeValue(currentNode,c);
+            	if(nodeIsReachable(getNode(c.getValue()),targetToNode)||getNode(c.getValue()).equals(targetToNode))
             	{
-            		total = weight + getEdgeValue(c,targetToNode);
+            		weight+=getEdgeValue(currentNode,c);
+            		
+            		
+            			if((getNode(c.getValue()).equals(targetToNode)&&total<weight + getEdgeValue(currentNode,c))||total==0)
+            				total = weight;
+            		queue.add(c);
             	}
+            	
             }
-            alreadyVisited.add(currentNode);
-            queue.addAll(currentNode.getNeighbors());
-            queue.removeAll(alreadyVisited);
+            //queue.addAll(currentNode.getNeighbors());
+            //alreadyVisited.add(currentNode);
+            
+           //queue.removeAll(alreadyVisited);
         }
 		
 		return total;
+		*/
+		
+		
 	}
 	
 	
