@@ -94,7 +94,7 @@ public class DiGraphImpl implements DiGraph{
 		if(targetFromNode.getNeighbors().contains(targetToNode)) {
 			return true;
 		}
-		else if(circuitCounter>nodeList.size()+100*10)
+		else if(circuitCounter>nodeList.size()*100)
 		{
 			return false;
 		}
