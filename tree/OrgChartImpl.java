@@ -30,7 +30,7 @@ public class OrgChartImpl implements OrgChart{
 		
 		//removes all elements in the org chart..  can do in a 1 liner
 		public void clear() {
-			nodes = null;
+			nodes.clear();
 			
 		}
 
